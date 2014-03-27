@@ -1,6 +1,6 @@
 <?php
 /**
- * Description of SongCheater: Class for getting notes, and chords from a given root
+ * Class for getting notes, and chords from a given root
  * note.
  * @copyright (c) 2014, Jason Hittle
  * @author Jason Hittle
@@ -14,14 +14,14 @@ class SongCheater {
     public $chromatic_scale = array('A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#');
 
     /**
-     * The whole (w) and half (h) steps of the Major scale (Aeolian mode) starting with
+     * The whole (w) and half (h) steps of the Major scale (Ionian mode) starting with
      * the root note. Example: C major would be C w D w E h F w G w A w B.
      * @var array
      */
     public $major_intervals = array('w', 'w', 'h', 'w', 'w', 'w');
 
     /**
-     * The whole (w) and half (h) steps of the Major scale (Aeolian mode) starting with
+     * The whole (w) and half (h) steps of the Minor scale (Aeolian mode) starting with
      * the root note. Example: A natural minor would be A w B h C w D w E h F w G.
      * @var array
      */
@@ -61,13 +61,13 @@ class SongCheater {
      * Holds the current root note
      * @var string
      */
-    protected $root_note;
+    private $root_note;
 
     /**
      * Holds the current minor root note
      * @var string
      */
-    protected $minor_root_note;
+    private $minor_root_note;
 
     /**
      * An array containing the notes of the major scale.
@@ -82,7 +82,7 @@ class SongCheater {
     public $minor_scale;
 
     public function __construct($root_note = 'C') {
-        $this->root_note = $root_note;
+        $this->root_note = $this->isNote($root_note) ? $root_note : 'C';
         $this->setMajorScale();
         $this->minor_root_note = $this->findRelativeMinor();
         $this->setMinorScale();
@@ -102,6 +102,12 @@ class SongCheater {
             $scale[] = $ordered_chromatic[$i];
         }
         return $scale;
+    }
+    
+    public function isNote($note)
+    {
+        $is_note = in_array($note, $this->chromatic_scale) ? TRUE : FALSE;
+        return $is_note;
     }
 
     private function findRelativeMinor() {
