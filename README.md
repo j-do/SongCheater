@@ -1,1 +1,1 @@
-PHP class for getting the note, and chords of the major and relative minor scales given the root note of the major scale.
+PHP class for getting the note, and chords of the major and relative minor scales given the root note of the major scale. I've long since come up with a completely differently and more robust and efficient of doing this. But hey it'll work.
